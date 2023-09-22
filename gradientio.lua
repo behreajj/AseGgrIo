@@ -159,6 +159,7 @@ dlg:button {
         if apiVersion >= 23 then
             sprite = app.sprite
         else
+            ---@diagnostic disable-next-line: deprecated
             sprite = app.activeSprite
         end
 
@@ -217,6 +218,7 @@ dlg:button {
         if apiVersion >= 23 then
             sprite = app.sprite
         else
+            ---@diagnostic disable-next-line: deprecated
             sprite = app.activeSprite
         end
 
@@ -341,8 +343,11 @@ dlg:button {
             layer = app.layer
             frame = app.frame
         else
+            ---@diagnostic disable-next-line: deprecated
             sprite = app.activeSprite
+            ---@diagnostic disable-next-line: deprecated
             layer = app.activeLayer
+            ---@diagnostic disable-next-line: deprecated
             frame = app.activeFrame
         end
 
@@ -398,7 +403,8 @@ dlg:button {
         end
 
         local version = app.version
-        if version.major >= 1 and version.minor >= 3 then
+        if (version.major >= 1 and version.minor >= 3)
+            or version.prereleaseLabel == "dev" then
             if layer.isTilemap then
                 app.alert {
                     title = "Error",
