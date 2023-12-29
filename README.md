@@ -24,6 +24,6 @@ Aseprite's UI has a bug where the swatches widget will not display a large numbe
 
 ## Issues
 
-This script was tested in Aseprite version 1.2.40-x64 on Windows 10. Its user interface elements were tested with 100% screen scaling and 200% UI scaling.
+This script was tested in Aseprite version 1.3.2 on Windows 10. Its user interface elements were tested with 100% screen scaling and 200% UI scaling.
 
 Please report issues in the [Issues](https://github.com/behreajj/AseGgrIo/issues) section on Github. When reporting, please include the version of Aseprite used.
