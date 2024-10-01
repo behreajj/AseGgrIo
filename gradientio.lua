@@ -45,6 +45,8 @@ local function hsbToRgb(hue, sat, val)
         return tint3, tint1, v
     elseif sector == 5 then
         return v, tint1, tint2
+    elseif sector == 6 then
+        return v, tint3, tint1
     end
 
     return 0.0, 0.0, 0.0
@@ -239,6 +241,16 @@ dlg:button {
             return
         end
 
+        -- As a precaution against crashes, do not allow slices UI interface
+        -- to be active.
+        local appTool <const> = app.tool
+        if appTool then
+            local toolName <const> = appTool.id
+            if toolName == "slice" then
+                app.tool = "hand"
+            end
+        end
+
         local palIdx <const> = 1
         local spritePalettes <const> = sprite.palettes
         local palette <const> = spritePalettes[palIdx]
@@ -299,6 +311,16 @@ dlg:button {
                 text = "Grayscale color mode not supported."
             }
             return
+        end
+
+        -- As a precaution against crashes, do not allow slices UI interface
+        -- to be active.
+        local appTool <const> = app.tool
+        if appTool then
+            local toolName <const> = appTool.id
+            if toolName == "slice" then
+                app.tool = "hand"
+            end
         end
 
         local args <const> = dlg.data
@@ -470,6 +492,16 @@ dlg:button {
             return
         end
 
+        -- As a precaution against crashes, do not allow slices UI interface
+        -- to be active.
+        local appTool <const> = app.tool
+        if appTool then
+            local toolName <const> = appTool.id
+            if toolName == "slice" then
+                app.tool = "hand"
+            end
+        end
+
         app.transaction(function()
             if colorMode ~= ColorMode.RGB then
                 app.command.ChangePixelFormat { format = "rgb" }
@@ -597,6 +629,16 @@ dlg:button {
                 text = "File format is not ggr."
             }
             return
+        end
+
+        -- As a precaution against crashes, do not allow slices UI interface
+        -- to be active.
+        local appTool <const> = app.tool
+        if appTool then
+            local toolName <const> = appTool.id
+            if toolName == "slice" then
+                app.tool = "hand"
+            end
         end
 
         local file <const>, err <const> = io.open(filepath, "r")
@@ -887,6 +929,16 @@ dlg:button {
                 text = "At least two colors required."
             }
             return
+        end
+
+        -- As a precaution against crashes, do not allow slices UI interface
+        -- to be active.
+        local appTool <const> = app.tool
+        if appTool then
+            local toolName <const> = appTool.id
+            if toolName == "slice" then
+                app.tool = "hand"
+            end
         end
 
         local blendFuncStr <const> = args.blendFunc
