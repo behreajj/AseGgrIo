@@ -334,7 +334,10 @@ dlg:button {
 
             app.transaction(function()
                 if colorMode ~= ColorMode.RGB then
-                    app.command.ChangePixelFormat { format = "rgb" }
+                    app.command.ChangePixelFormat {
+                        ui = false,
+                        format = "rgb"
+                    }
                 end
 
                 ---@type integer[]
@@ -371,8 +374,11 @@ dlg:button {
 
                 if colorMode == ColorMode.INDEXED then
                     app.command.ChangePixelFormat {
+                        ui = false,
                         format = "indexed",
-                        dithering = "ordered"
+                        dithering = "ordered",
+                        fitCriteria = "cielab",
+                        rgbmap = "octree"
                     }
                 end
             end)
@@ -504,7 +510,10 @@ dlg:button {
 
         app.transaction(function()
             if colorMode ~= ColorMode.RGB then
-                app.command.ChangePixelFormat { format = "rgb" }
+                app.command.ChangePixelFormat {
+                    ui = false,
+                    format = "rgb"
+                }
             end
 
             local srcImg <const> = cel.image
@@ -709,27 +718,17 @@ dlg:button {
                 local iFac <const> = i * iToFac
                 i = i + 1
 
-                local r01 = 0.0
-                local g01 = 0.0
-                local b01 = 0.0
-                local a01 = 0.0
-
+                local r01, g01, b01, a01 = 0.0, 0.0, 0.0, 0.0
                 if iFac <= keys[1][1] then
                     -- If less than lower bound,
                     -- then set to left color of first key.
                     local seg <const> = keys[1]
-                    r01 = seg[4]
-                    g01 = seg[5]
-                    b01 = seg[6]
-                    a01 = seg[7]
+                    r01, g01, b01, a01 = seg[4], seg[5], seg[6], seg[7]
                 elseif iFac >= keys[lenKeys][3] then
                     -- If greater than upper bound,
                     -- then set to right color of last key.
                     local seg <const> = keys[lenKeys]
-                    r01 = seg[8]
-                    g01 = seg[9]
-                    b01 = seg[10]
-                    a01 = seg[11]
+                    r01, g01, b01, a01 = seg[8], seg[9], seg[10], seg[11]
                 else
                     -- Search for the segment within which the step falls.
                     local segFound = false
